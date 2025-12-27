@@ -1,0 +1,65 @@
+:root {
+    --accent: #00a2ff;
+    --glass: rgba(255, 255, 255, 0.07);
+}
+
+body, html {
+    margin: 0; padding: 0;
+    width: 100vw; height: 100vh;
+    background: #000; overflow: hidden;
+    color: white; font-family: "SF Pro Text", -apple-system, sans-serif;
+}
+
+/* メモリ贅沢背景 */
+#gradient-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background: linear-gradient(135deg, #000011, #001133, #000022, #002244);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite alternate;
+}
+
+@keyframes gradientMove { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+
+#main-layout {
+    display: flex; height: 100vh;
+    padding: 40px; box-sizing: border-box; gap: 40px;
+}
+
+/* 左：時計エリア */
+#left-panel { flex: 0 0 35%; display: flex; flex-direction: column; gap: 30px; }
+#clock { font-size: 6rem; font-weight: 200; line-height: 1; margin-top: 10px; }
+#date { font-size: 1.5rem; opacity: 0.7; border-left: 3px solid var(--accent); padding-left: 15px; }
+
+.mini-widget { background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+.label { font-size: 0.7rem; opacity: 0.5; margin: 0; letter-spacing: 2px; }
+.val { font-size: 1.2rem; margin: 5px 0 0 0; }
+
+/* 右：巨大スクロールエリア */
+#right-panel {
+    flex: 1; background: var(--glass); border-radius: 40px;
+    overflow-y: auto; padding: 0 40px 40px 40px;
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.1);
+    scrollbar-width: none;
+}
+#right-panel::-webkit-scrollbar { display: none; }
+
+.sticky-head {
+    position: sticky; top: 0; background: rgba(0, 10, 30, 0.9);
+    margin: 0 -40px 20px -40px; padding: 30px 40px;
+    font-size: 1rem; letter-spacing: 4px; z-index: 10;
+}
+
+.news-card { padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 1.5rem; line-height: 1.4; }
+.event-item { padding: 20px 0; font-size: 1.3rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.t { color: var(--accent); font-weight: bold; margin-right: 20px; }
+
+#settings-btn { position: absolute; top: 40px; right: 40px; font-size: 2rem; opacity: 0.4; z-index: 20; }
+
+/* 緊急オーバーレイ */
+#emergency-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(200, 0, 0, 0.95); z-index: 1000; justify-content: center; align-items: center;
+}
+.alert-box { text-align: center; animation: shake 0.2s infinite; }
+@keyframes shake { 0% { transform: translate(0,0); } 50% { transform: translate(5px,5px); } 100% { transform: translate(0,0); } }
